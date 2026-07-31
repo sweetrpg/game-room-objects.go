@@ -6,7 +6,7 @@ import (
 
 // License value object.
 // This value object is a serializable representation of the License model.
-type LibraryVO struct {
+type ShelfVO struct {
 	ID     string            `json:"id" jsonapi:"primary,license"`
 	UserID string            `bson:"user_id" json:"user_id" jsonapi:"relation,user"`
 	Notes  string            `json:"notes" jsonapi:"attr,notes"`

@@ -99,10 +99,10 @@ jobs:
                     - repo: kv-objects
                     - repo: kv-value-calculator
                     - repo: kv-web
-                    - repo: library-api
+                    - repo: shelf-api
                     - repo: library-data
-                    - repo: library-objects
-                    - repo: library-web
+                    - repo: shelf-objects
+                    - repo: shelf-web
                     - repo: main-web
                     - repo: model-core
                     - repo: shared-web
