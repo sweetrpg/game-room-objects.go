@@ -1,17 +1,17 @@
-# sweetrpg-library-objects
+# sweetrpg-shelf-objects
 
-[![Unit tests](https://github.com/sweetrpg/library-objects/actions/workflows/python-ci.yml/badge.svg)](https://github.com/sweetrpg/library-objects/actions/workflows/python-ci.yml)
-[![Coverage](https://github.com/sweetrpg/library-objects/blob/develop/coverage.svg)](https://github.com/sweetrpg/library-objects)
-[![PyPI version](https://badgen.net/pypi/v/sweetrpg-library-objects)](https://pypi.org/project/sweetrpg-library-objects)
-[![License](https://img.shields.io/github/license/sweetrpg/library-objects.svg)](https://img.shields.io/github/license/sweetrpg/library-objects.svg)
-[![Issues](https://img.shields.io/github/issues/sweetrpg/library-objects.svg)](https://img.shields.io/github/issues/sweetrpg/library-objects.svg)
-[![PRs](https://img.shields.io/github/issues-pr/sweetrpg/library-objects.svg)](https://img.shields.io/github/issues-pr/sweetrpg/library-objects.svg)
-[![Dependabot](https://badgen.net/github/dependabot/sweetrpg/library-objects)](https://badgen.net/github/dependabot/sweetrpg/library-objects)
+[![Unit tests](https://github.com/sweetrpg/shelf-objects/actions/workflows/python-ci.yml/badge.svg)](https://github.com/sweetrpg/shelf-objects/actions/workflows/python-ci.yml)
+[![Coverage](https://github.com/sweetrpg/shelf-objects/blob/develop/coverage.svg)](https://github.com/sweetrpg/shelf-objects)
+[![PyPI version](https://badgen.net/pypi/v/sweetrpg-shelf-objects)](https://pypi.org/project/sweetrpg-shelf-objects)
+[![License](https://img.shields.io/github/license/sweetrpg/shelf-objects.svg)](https://img.shields.io/github/license/sweetrpg/shelf-objects.svg)
+[![Issues](https://img.shields.io/github/issues/sweetrpg/shelf-objects.svg)](https://img.shields.io/github/issues/sweetrpg/shelf-objects.svg)
+[![PRs](https://img.shields.io/github/issues-pr/sweetrpg/shelf-objects.svg)](https://img.shields.io/github/issues-pr/sweetrpg/shelf-objects.svg)
+[![Dependabot](https://badgen.net/github/dependabot/sweetrpg/shelf-objects)](https://badgen.net/github/dependabot/sweetrpg/shelf-objects)
 
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 [![Built with love](https://ForTheBadge.com/images/badges/built-with-love.svg)](https://ForTheBadge.com/images/badges/built-with-love.svg)
 
-Model package for library applications.
+Model package for shelf applications.
 
 ## Models
 
@@ -110,8 +110,8 @@ Model package for library applications.
 
 1. Create a virtual environment
     ```shell
-    python -m venv ~/.virtualenvs/sweetrpg-library-objects
-    source ~/.virtualenvs/sweetrpg-library-objects/bin/activate
+    python -m venv ~/.virtualenvs/sweetrpg-shelf-objects
+    source ~/.virtualenvs/sweetrpg-shelf-objects/bin/activate
     ```
 2. Install requirements
     ```shell
@@ -135,4 +135,4 @@ resolved versions and dependencies.
 
 ## Documentation
 
-Documentation for this package can be found [here](https://sweetrpg.github.io/library-objects).
+Documentation for this package can be found [here](https://sweetrpg.github.io/shelf-objects).

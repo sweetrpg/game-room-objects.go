@@ -1,4 +1,4 @@
-module github.com/sweetrpg/library-objects
+module github.com/sweetrpg/shelf-objects
 
 go 1.23.3
 
