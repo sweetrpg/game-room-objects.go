@@ -1,4 +1,4 @@
-module github.com/sweetrpg/shelf-objects.go
+module github.com/sweetrpg/game-room-objects.go
 
 go 1.26.5
 

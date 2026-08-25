@@ -99,10 +99,10 @@ jobs:
                     - repo: kv-objects
                     - repo: kv-value-calculator
                     - repo: kv-web
-                    - repo: shelf-api
+                    - repo: game-room-api
                     - repo: library-data
-                    - repo: shelf-objects
-                    - repo: shelf-web
+                    - repo: game-room-objects
+                    - repo: game-room-web
                     - repo: main-web
                     - repo: model-core
                     - repo: shared-web
@@ -111,6 +111,6 @@ jobs:
             - uses: juztcode/repo-ditpatch-action@v1
               continue-on-error: true
               with:
-                event-type: catalog-objects-published
+                event-type: game-room-objects-published
                 token: ${{ secrets.REPO_ACCESS_TOKEN }}
                 repository: sweetrpg/${{ matrix.repo }}
