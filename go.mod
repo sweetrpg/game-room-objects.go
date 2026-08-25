@@ -1,7 +1,5 @@
-module github.com/sweetrpg/shelf-objects
+module github.com/sweetrpg/shelf-objects.go
 
-go 1.23.3
+go 1.26.5
 
-require github.com/sweetrpg/model-core v0.0.159
-
-require github.com/sweetrpg/common v0.0.7 // indirect
+require github.com/sweetrpg/model-core.go v0.0.173

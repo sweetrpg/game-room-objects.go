@@ -1,17 +1,32 @@
-# sweetrpg-shelf-objects
+# shelf-objects.go
 
-[![Unit tests](https://github.com/sweetrpg/shelf-objects/actions/workflows/python-ci.yml/badge.svg)](https://github.com/sweetrpg/shelf-objects/actions/workflows/python-ci.yml)
-[![Coverage](https://github.com/sweetrpg/shelf-objects/blob/develop/coverage.svg)](https://github.com/sweetrpg/shelf-objects)
-[![PyPI version](https://badgen.net/pypi/v/sweetrpg-shelf-objects)](https://pypi.org/project/sweetrpg-shelf-objects)
-[![License](https://img.shields.io/github/license/sweetrpg/shelf-objects.svg)](https://img.shields.io/github/license/sweetrpg/shelf-objects.svg)
-[![Issues](https://img.shields.io/github/issues/sweetrpg/shelf-objects.svg)](https://img.shields.io/github/issues/sweetrpg/shelf-objects.svg)
-[![PRs](https://img.shields.io/github/issues-pr/sweetrpg/shelf-objects.svg)](https://img.shields.io/github/issues-pr/sweetrpg/shelf-objects.svg)
-[![Dependabot](https://badgen.net/github/dependabot/sweetrpg/shelf-objects)](https://badgen.net/github/dependabot/sweetrpg/shelf-objects)
+[![CI](https://github.com/sweetrpg/shelf-objects.go/actions/workflows/ci.yaml/badge.svg)](https://github.com/sweetrpg/shelf-objects.go/actions/workflows/ci.yaml)
+[![Coverage](https://img.shields.io/endpoint?url=https://sweetrpg.github.io/shelf-objects.go/coverage-badge.json)](https://sweetrpg.github.io/shelf-objects.go/)
+[![License](https://img.shields.io/github/license/sweetrpg/shelf-objects.go.svg)](https://img.shields.io/github/license/sweetrpg/shelf-objects.go.svg)
+[![Issues](https://img.shields.io/github/issues/sweetrpg/shelf-objects.go.svg)](https://img.shields.io/github/issues/sweetrpg/shelf-objects.go.svg)
+[![PRs](https://img.shields.io/github/issues-pr/sweetrpg/shelf-objects.go.svg)](https://img.shields.io/github/issues-pr/sweetrpg/shelf-objects.go.svg)
+[![Dependabot](https://badgen.net/github/dependabot/sweetrpg/shelf-objects.go)](https://badgen.net/github/dependabot/sweetrpg/shelf-objects.go)
 
-[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-[![Built with love](https://ForTheBadge.com/images/badges/built-with-love.svg)](https://ForTheBadge.com/images/badges/built-with-love.svg)
+Persistence models and API value objects for the Shelf microservice's domain: library, wishlist, table, and visibility. Pure data types - no business logic, no I/O.
 
-Model package for shelf applications.
+## Install
+
+```bash
+go get github.com/sweetrpg/shelf-objects.go
+```
+
+## Packages
+
+- `models` - persistence-layer structs, each embedding `model-core.go`'s `Auditable`
+- `vo` - the matching API-facing value objects, each embedding `model-core.go`'s `AuditableVO`
+
+## Documentation
+
+Package documentation: [pkg.go.dev/github.com/sweetrpg/shelf-objects.go](https://pkg.go.dev/github.com/sweetrpg/shelf-objects.go).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow.
 
 ## Models
 
