@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>models: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/sweetrpg/game-room-objects.go/models/library.go (100.0%)</option>
+				
+				<option value="file1">github.com/sweetrpg/game-room-objects.go/models/table.go (100.0%)</option>
+				
+				<option value="file2">github.com/sweetrpg/game-room-objects.go/models/visibility.go (100.0%)</option>
+				
+				<option value="file3">github.com/sweetrpg/game-room-objects.go/models/wishlist.go (100.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package models
+
+import modelcore "github.com/sweetrpg/model-core.go/models"
+
+// Library is a user's collection of owned catalog volumes.
+type Library struct {
+        ID                string         `bson:"_id" json:"id" jsonapi:"primary,library"`
+        UserID            string         `bson:"user_id" json:"user_id" jsonapi:"relation,user"`
+        DefaultVisibility Visibility     `bson:"default_visibility" json:"default_visibility" jsonapi:"attr,default_visibility"`
+        Entries           []LibraryEntry `bson:"entries" json:"entries" jsonapi:"attr,entries"`
+        modelcore.Auditable
+}
+
+// LibraryEntry links a library to one owned catalog volume, with an optional
+// per-entry visibility override.
+type LibraryEntry struct {
+        VolumeID           string      `bson:"volume_id" json:"volume_id"`
+        VisibilityOverride *Visibility `bson:"visibility_override,omitempty" json:"visibility_override,omitempty"`
+}
+
+// NewLibrary creates a library defaulting to private visibility, per the
+// "new library defaults to private" requirement.
+func NewLibrary(id, userID string) Library <span class="cov1" title="1">{
+        return Library{
+                ID:                id,
+                UserID:            userID,
+                DefaultVisibility: VisibilityPrivate,
+        }
+}</span>
+
+// EffectiveVisibility resolves the entry's visibility: its own override when
+// present, otherwise the library's default.
+func (e LibraryEntry) EffectiveVisibility(libraryDefault Visibility) Visibility <span class="cov10" title="2">{
+        if e.VisibilityOverride != nil </span><span class="cov1" title="1">{
+                return *e.VisibilityOverride
+        }</span>
+        <span class="cov1" title="1">return libraryDefault</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package models
+
+import modelcore "github.com/sweetrpg/model-core.go/models"
+
+// Table is a named play collection grouping multiple catalog volumes, with
+// its own visibility independent of the owner's library or wishlist.
+type Table struct {
+        ID         string     `bson:"_id" json:"id" jsonapi:"primary,table"`
+        UserID     string     `bson:"user_id" json:"user_id" jsonapi:"relation,user"`
+        Name       string     `bson:"name" json:"name" jsonapi:"attr,name"`
+        VolumeIDs  []string   `bson:"volume_ids" json:"volume_ids" jsonapi:"relation,volume"`
+        Visibility Visibility `bson:"visibility" json:"visibility" jsonapi:"attr,visibility"`
+        modelcore.Auditable
+}
+
+// NewTable creates a table defaulting to private visibility, per the "new
+// tables default to private" requirement.
+func NewTable(id, userID, name string) Table <span class="cov8" title="1">{
+        return Table{
+                ID:         id,
+                UserID:     userID,
+                Name:       name,
+                Visibility: VisibilityPrivate,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package models
+
+// Visibility controls who may see a Shelf collection or entry.
+type Visibility string
+
+const (
+        VisibilityPrivate          Visibility = "private"
+        VisibilityFriends          Visibility = "friends"
+        VisibilityFriendsOfFriends Visibility = "friends-of-friends"
+        VisibilityPublic           Visibility = "public"
+)
+
+// visibilityRank orders levels from least to most exposed. Used only to
+// determine whether a change makes an entry more visible - never to clamp
+// overrides, which may move in either direction relative to a default.
+var visibilityRank = map[Visibility]int{
+        VisibilityPrivate:          0,
+        VisibilityFriends:          1,
+        VisibilityFriendsOfFriends: 2,
+        VisibilityPublic:           3,
+}
+
+// MoreExposedThan reports whether v is visible to a strictly larger audience than other.
+func (v Visibility) MoreExposedThan(other Visibility) bool <span class="cov10" title="7">{
+        return visibilityRank[v] &gt; visibilityRank[other]
+}</span>
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package models
+
+import modelcore "github.com/sweetrpg/model-core.go/models"
+
+// Wishlist is a user's collection of wanted catalog volumes, with its own
+// visibility independent of the library.
+type Wishlist struct {
+        ID         string          `bson:"_id" json:"id" jsonapi:"primary,wishlist"`
+        UserID     string          `bson:"user_id" json:"user_id" jsonapi:"relation,user"`
+        Visibility Visibility      `bson:"visibility" json:"visibility" jsonapi:"attr,visibility"`
+        Entries    []WishlistEntry `bson:"entries" json:"entries" jsonapi:"attr,entries"`
+        modelcore.Auditable
+}
+
+// WishlistEntry links a wishlist to one wanted catalog volume.
+type WishlistEntry struct {
+        VolumeID string `bson:"volume_id" json:"volume_id"`
+}
+
+// NewWishlist creates a wishlist defaulting to private visibility, per the
+// "new wishlists default to private" requirement.
+func NewWishlist(id, userID string) Wishlist <span class="cov8" title="1">{
+        return Wishlist{
+                ID:         id,
+                UserID:     userID,
+                Visibility: VisibilityPrivate,
+        }
+}</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>
