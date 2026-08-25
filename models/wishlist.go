@@ -1,0 +1,28 @@
+package models
+
+import modelcore "github.com/sweetrpg/model-core.go/models"
+
+// Wishlist is a user's collection of wanted catalog volumes, with its own
+// visibility independent of the library.
+type Wishlist struct {
+	ID         string          `bson:"_id" json:"id" jsonapi:"primary,wishlist"`
+	UserID     string          `bson:"user_id" json:"user_id" jsonapi:"relation,user"`
+	Visibility Visibility      `bson:"visibility" json:"visibility" jsonapi:"attr,visibility"`
+	Entries    []WishlistEntry `bson:"entries" json:"entries" jsonapi:"attr,entries"`
+	modelcore.Auditable
+}
+
+// WishlistEntry links a wishlist to one wanted catalog volume.
+type WishlistEntry struct {
+	VolumeID string `bson:"volume_id" json:"volume_id"`
+}
+
+// NewWishlist creates a wishlist defaulting to private visibility, per the
+// "new wishlists default to private" requirement.
+func NewWishlist(id, userID string) Wishlist {
+	return Wishlist{
+		ID:         id,
+		UserID:     userID,
+		Visibility: VisibilityPrivate,
+	}
+}
