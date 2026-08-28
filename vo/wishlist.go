@@ -1,6 +1,10 @@
 package vo
 
-import modelcore "github.com/sweetrpg/model-core.go/vo"
+import (
+	"time"
+
+	modelcore "github.com/sweetrpg/model-core.go/vo"
+)
 
 // Wishlist value object.
 // This value object is a serializable representation of the Wishlist model.
@@ -14,5 +18,6 @@ type WishlistVO struct {
 
 // WishlistEntry value object.
 type WishlistEntryVO struct {
-	VolumeID string `json:"volume_id"`
+	VolumeID string    `json:"volume_id"`
+	AddedAt  time.Time `json:"added_at"`
 }
