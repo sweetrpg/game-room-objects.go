@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"testing"
+	"time"
 )
 
 func TestNewLibraryDefaultsPrivate(t *testing.T) {
@@ -27,13 +28,14 @@ func TestLibraryEntryEffectiveVisibility(t *testing.T) {
 
 func TestLibraryRoundTrip(t *testing.T) {
 	override := VisibilityPrivate
+	addedAt := time.Date(2026, 8, 28, 12, 0, 0, 0, time.UTC)
 	lib := Library{
 		ID:                "lib-1",
 		UserID:            "user-1",
 		DefaultVisibility: VisibilityPublic,
 		Entries: []LibraryEntry{
-			{VolumeID: "vol-1"},
-			{VolumeID: "vol-2", VisibilityOverride: &override},
+			{VolumeID: "vol-1", AddedAt: addedAt},
+			{VolumeID: "vol-2", VisibilityOverride: &override, AddedAt: addedAt},
 		},
 	}
 
@@ -52,5 +54,8 @@ func TestLibraryRoundTrip(t *testing.T) {
 	}
 	if len(got.Entries) != 2 || got.Entries[1].VisibilityOverride == nil || *got.Entries[1].VisibilityOverride != VisibilityPrivate {
 		t.Fatalf("entries did not round-trip: %+v", got.Entries)
+	}
+	if !got.Entries[0].AddedAt.Equal(addedAt) {
+		t.Fatalf("AddedAt did not round-trip: got %v, want %v", got.Entries[0].AddedAt, addedAt)
 	}
 }

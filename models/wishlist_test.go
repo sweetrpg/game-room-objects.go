@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"testing"
+	"time"
 )
 
 func TestNewWishlistDefaultsPrivate(t *testing.T) {
@@ -13,11 +14,12 @@ func TestNewWishlistDefaultsPrivate(t *testing.T) {
 }
 
 func TestWishlistRoundTrip(t *testing.T) {
+	addedAt := time.Date(2026, 8, 28, 12, 0, 0, 0, time.UTC)
 	wl := Wishlist{
 		ID:         "wl-1",
 		UserID:     "user-1",
 		Visibility: VisibilityPublic,
-		Entries:    []WishlistEntry{{VolumeID: "vol-1"}},
+		Entries:    []WishlistEntry{{VolumeID: "vol-1", AddedAt: addedAt}},
 	}
 
 	data, err := json.Marshal(wl)
@@ -32,5 +34,8 @@ func TestWishlistRoundTrip(t *testing.T) {
 
 	if got.ID != wl.ID || got.Visibility != wl.Visibility || len(got.Entries) != 1 || got.Entries[0].VolumeID != "vol-1" {
 		t.Fatalf("round-trip mismatch: got %+v, want %+v", got, wl)
+	}
+	if !got.Entries[0].AddedAt.Equal(addedAt) {
+		t.Fatalf("AddedAt did not round-trip: got %v, want %v", got.Entries[0].AddedAt, addedAt)
 	}
 }

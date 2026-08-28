@@ -1,6 +1,10 @@
 package vo
 
-import modelcore "github.com/sweetrpg/model-core.go/vo"
+import (
+	"time"
+
+	modelcore "github.com/sweetrpg/model-core.go/vo"
+)
 
 // Library value object.
 // This value object is a serializable representation of the Library model.
@@ -14,6 +18,7 @@ type LibraryVO struct {
 
 // LibraryEntry value object.
 type LibraryEntryVO struct {
-	VolumeID           string  `json:"volume_id"`
-	VisibilityOverride *string `json:"visibility_override,omitempty"`
+	VolumeID           string    `json:"volume_id"`
+	VisibilityOverride *string   `json:"visibility_override,omitempty"`
+	AddedAt            time.Time `json:"added_at"`
 }
