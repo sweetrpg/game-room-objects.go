@@ -1,6 +1,10 @@
 package models
 
-import modelcore "github.com/sweetrpg/model-core.go/models"
+import (
+	"time"
+
+	modelcore "github.com/sweetrpg/model-core.go/models"
+)
 
 // Wishlist is a user's collection of wanted catalog volumes, with its own
 // visibility independent of the library.
@@ -14,7 +18,8 @@ type Wishlist struct {
 
 // WishlistEntry links a wishlist to one wanted catalog volume.
 type WishlistEntry struct {
-	VolumeID string `bson:"volume_id" json:"volume_id"`
+	VolumeID string    `bson:"volume_id" json:"volume_id"`
+	AddedAt  time.Time `bson:"added_at" json:"added_at"`
 }
 
 // NewWishlist creates a wishlist defaulting to private visibility, per the

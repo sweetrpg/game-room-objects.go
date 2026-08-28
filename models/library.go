@@ -1,6 +1,10 @@
 package models
 
-import modelcore "github.com/sweetrpg/model-core.go/models"
+import (
+	"time"
+
+	modelcore "github.com/sweetrpg/model-core.go/models"
+)
 
 // Library is a user's collection of owned catalog volumes.
 type Library struct {
@@ -16,6 +20,7 @@ type Library struct {
 type LibraryEntry struct {
 	VolumeID           string      `bson:"volume_id" json:"volume_id"`
 	VisibilityOverride *Visibility `bson:"visibility_override,omitempty" json:"visibility_override,omitempty"`
+	AddedAt            time.Time   `bson:"added_at" json:"added_at"`
 }
 
 // NewLibrary creates a library defaulting to private visibility, per the
