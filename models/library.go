@@ -15,10 +15,11 @@ type Library struct {
 	modelcore.Auditable
 }
 
-// LibraryEntry links a library to one owned catalog volume, with an optional
-// per-entry visibility override.
+// LibraryEntry links a library to one owned catalog volume, with a denormalized
+// volume title snapshot and an optional per-entry visibility override.
 type LibraryEntry struct {
 	VolumeID           string      `bson:"volume_id" json:"volume_id"`
+	VolumeTitle        string      `bson:"volume_title" json:"volume_title"`
 	VisibilityOverride *Visibility `bson:"visibility_override,omitempty" json:"visibility_override,omitempty"`
 	AddedAt            time.Time   `bson:"added_at" json:"added_at"`
 }
