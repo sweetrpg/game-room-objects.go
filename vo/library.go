@@ -19,6 +19,7 @@ type LibraryVO struct {
 // LibraryEntry value object.
 type LibraryEntryVO struct {
 	VolumeID           string    `json:"volume_id"`
+	VolumeTitle        string    `json:"volume_title"`
 	VisibilityOverride *string   `json:"visibility_override,omitempty"`
 	AddedAt            time.Time `json:"added_at"`
 }
