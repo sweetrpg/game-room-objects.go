@@ -7,9 +7,12 @@ import (
 )
 
 func TestNewWishlistDefaultsPrivate(t *testing.T) {
-	wl := NewWishlist("wl-1", "user-1")
+	wl := NewWishlist("wl-1", "user-1", "Birthday")
 	if wl.Visibility != VisibilityPrivate {
 		t.Errorf("Visibility = %s, want %s", wl.Visibility, VisibilityPrivate)
+	}
+	if wl.Name != "Birthday" {
+		t.Errorf("Name = %s, want Birthday", wl.Name)
 	}
 }
 
@@ -18,6 +21,7 @@ func TestWishlistRoundTrip(t *testing.T) {
 	wl := Wishlist{
 		ID:         "wl-1",
 		UserID:     "user-1",
+		Name:       "Con haul",
 		Visibility: VisibilityPublic,
 		Entries:    []WishlistEntry{{VolumeID: "vol-1", AddedAt: addedAt}},
 	}
@@ -32,7 +36,7 @@ func TestWishlistRoundTrip(t *testing.T) {
 		t.Fatalf("Unmarshal: %v", err)
 	}
 
-	if got.ID != wl.ID || got.Visibility != wl.Visibility || len(got.Entries) != 1 || got.Entries[0].VolumeID != "vol-1" {
+	if got.ID != wl.ID || got.Name != wl.Name || got.Visibility != wl.Visibility || len(got.Entries) != 1 || got.Entries[0].VolumeID != "vol-1" {
 		t.Fatalf("round-trip mismatch: got %+v, want %+v", got, wl)
 	}
 	if !got.Entries[0].AddedAt.Equal(addedAt) {
