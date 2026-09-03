@@ -14,11 +14,12 @@ func TestNewTableDefaultsPrivate(t *testing.T) {
 
 func TestTableRoundTrip(t *testing.T) {
 	tbl := Table{
-		ID:         "tbl-1",
-		UserID:     "user-1",
-		Name:       "Friday Night Game",
-		VolumeIDs:  []string{"vol-1", "vol-2"},
-		Visibility: VisibilityFriendsOfFriends,
+		ID:           "tbl-1",
+		UserID:       "user-1",
+		Name:         "Friday Night Game",
+		VolumeIDs:    []string{"vol-1", "vol-2"},
+		VolumeTitles: map[string]string{"vol-1": "Pathfinder Core", "vol-2": "Bestiary"},
+		Visibility:   VisibilityFriendsOfFriends,
 	}
 
 	data, err := json.Marshal(tbl)
@@ -33,5 +34,8 @@ func TestTableRoundTrip(t *testing.T) {
 
 	if got.ID != tbl.ID || got.Name != tbl.Name || got.Visibility != tbl.Visibility || len(got.VolumeIDs) != 2 {
 		t.Fatalf("round-trip mismatch: got %+v, want %+v", got, tbl)
+	}
+	if got.VolumeTitles["vol-1"] != "Pathfinder Core" || got.VolumeTitles["vol-2"] != "Bestiary" {
+		t.Fatalf("VolumeTitles did not round-trip: got %v", got.VolumeTitles)
 	}
 }
