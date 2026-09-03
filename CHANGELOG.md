@@ -1,3 +1,10 @@
+
+## 0.3.0 - 2026-09-03
+
+### Added
+- Denormalized volume title on table volumes and wishlist entries
+
+
 ## 0.2.1 - 2026-08-30
 
 
