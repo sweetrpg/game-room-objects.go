@@ -17,10 +17,13 @@ type Wishlist struct {
 	modelcore.Auditable
 }
 
-// WishlistEntry links a wishlist to one wanted catalog volume.
+// WishlistEntry links a wishlist to one wanted catalog volume, with a
+// denormalized volume title snapshot captured at add time and kept current by
+// the volume-updated consumer (mirrors LibraryEntry).
 type WishlistEntry struct {
-	VolumeID string    `bson:"volume_id" json:"volume_id"`
-	AddedAt  time.Time `bson:"added_at" json:"added_at"`
+	VolumeID    string    `bson:"volume_id" json:"volume_id"`
+	VolumeTitle string    `bson:"volume_title" json:"volume_title"`
+	AddedAt     time.Time `bson:"added_at" json:"added_at"`
 }
 
 // NewWishlist creates a wishlist defaulting to private visibility, per the

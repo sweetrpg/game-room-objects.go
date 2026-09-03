@@ -19,6 +19,7 @@ type WishlistVO struct {
 
 // WishlistEntry value object.
 type WishlistEntryVO struct {
-	VolumeID string    `json:"volume_id"`
-	AddedAt  time.Time `json:"added_at"`
+	VolumeID    string    `json:"volume_id"`
+	VolumeTitle string    `json:"volume_title"`
+	AddedAt     time.Time `json:"added_at"`
 }
