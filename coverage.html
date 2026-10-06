@@ -57,11 +57,13 @@
 				
 				<option value="file0">github.com/sweetrpg/game-room-objects.go/models/library.go (100.0%)</option>
 				
-				<option value="file1">github.com/sweetrpg/game-room-objects.go/models/table.go (100.0%)</option>
+				<option value="file1">github.com/sweetrpg/game-room-objects.go/models/loan.go (100.0%)</option>
 				
-				<option value="file2">github.com/sweetrpg/game-room-objects.go/models/visibility.go (100.0%)</option>
+				<option value="file2">github.com/sweetrpg/game-room-objects.go/models/table.go (100.0%)</option>
 				
-				<option value="file3">github.com/sweetrpg/game-room-objects.go/models/wishlist.go (100.0%)</option>
+				<option value="file3">github.com/sweetrpg/game-room-objects.go/models/visibility.go (100.0%)</option>
+				
+				<option value="file4">github.com/sweetrpg/game-room-objects.go/models/wishlist.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -132,6 +134,52 @@ func (e LibraryEntry) EffectiveVisibility(libraryDefault Visibility) Visibility 
 		
 		<pre class="file" id="file1" style="display: none">package models
 
+import (
+        "time"
+
+        modelcore "github.com/sweetrpg/model-core.go/models"
+)
+
+// LoanStatus is the lifecycle state of a Loan.
+type LoanStatus string
+
+const (
+        LoanStatusLent     LoanStatus = "lent"
+        LoanStatusReturned LoanStatus = "returned"
+)
+
+// Loan records a catalog volume lent by one player to another. The borrower
+// is either a platform-linked User (BorrowerUserID set) or a free-form name
+// for a player not on the platform; BorrowerName is always populated, either
+// the linked user's display name at lend time or the typed free-form text.
+type Loan struct {
+        ID             string     `bson:"_id" json:"id" jsonapi:"primary,loan"`
+        LenderUserID   string     `bson:"lender_user_id" json:"lender_user_id" jsonapi:"relation,user"`
+        VolumeID       string     `bson:"volume_id" json:"volume_id" jsonapi:"attr,volume_id"`
+        BorrowerUserID *string    `bson:"borrower_user_id,omitempty" json:"borrower_user_id,omitempty" jsonapi:"attr,borrower_user_id"`
+        BorrowerName   string     `bson:"borrower_name" json:"borrower_name" jsonapi:"attr,borrower_name"`
+        Status         LoanStatus `bson:"status" json:"status" jsonapi:"attr,status"`
+        LentAt         time.Time  `bson:"lent_at" json:"lent_at" jsonapi:"attr,lent_at"`
+        ReturnedAt     *time.Time `bson:"returned_at,omitempty" json:"returned_at,omitempty" jsonapi:"attr,returned_at"`
+        modelcore.Auditable
+}
+
+// NewLoan creates a loan in the lent state, lent now.
+func NewLoan(id, lenderUserID, volumeID string, borrowerUserID *string, borrowerName string) Loan <span class="cov8" title="1">{
+        return Loan{
+                ID:             id,
+                LenderUserID:   lenderUserID,
+                VolumeID:       volumeID,
+                BorrowerUserID: borrowerUserID,
+                BorrowerName:   borrowerName,
+                Status:         LoanStatusLent,
+                LentAt:         time.Now().UTC(),
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package models
+
 import modelcore "github.com/sweetrpg/model-core.go/models"
 
 // Table is a named play collection grouping multiple catalog volumes, with
@@ -163,7 +211,7 @@ func NewTable(id, userID, name string) Table <span class="cov8" title="1">{
 }</span>
 </pre>
 		
-		<pre class="file" id="file2" style="display: none">package models
+		<pre class="file" id="file3" style="display: none">package models
 
 // Visibility controls who may see a Shelf collection or entry.
 type Visibility string
@@ -191,7 +239,7 @@ func (v Visibility) MoreExposedThan(other Visibility) bool <span class="cov10" t
 }</span>
 </pre>
 		
-		<pre class="file" id="file3" style="display: none">package models
+		<pre class="file" id="file4" style="display: none">package models
 
 import (
         "time"
