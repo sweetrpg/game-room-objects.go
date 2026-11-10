@@ -1,5 +1,5 @@
 module github.com/sweetrpg/game-room-objects.go
 
-go 1.26.5
+go 1.26.10
 
 require github.com/sweetrpg/model-core.go v0.1.0
